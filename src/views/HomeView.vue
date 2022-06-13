@@ -13,6 +13,9 @@ export default {
   name: 'HomeView',
   components: {
     HelloWorld
+  },
+  async mounted () {
+    this.$router.push({ name: 'sellers'})
   }
 }
 </script>
