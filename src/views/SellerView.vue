@@ -18,7 +18,7 @@
                             <div class="font-semibold text-left">Email</div>
                         </th>
                         <th class="p-2">
-                            <div class="font-semibold text-center">Total de Comissão</div>
+                            <div class="font-semibold text-center">Comissão</div>
                         </th>
                         <th class="p-2">
                             <div class="font-semibold text-center">Ações</div>
@@ -40,7 +40,7 @@
                             {{ seller.email }}
                         </td>
                         <td class="pl-5">
-                            {{ toCurrent(seller.total_commission) }}
+                            {{ seller.commission }} %
                         </td>
                         <td class="pl-4">
                             <button
@@ -71,17 +71,6 @@ export default {
     data() {
         return {
             sellers: []
-        }
-    },
-    methods: {
-        toCurrent(value) {
-            if (!value) {
-                value = 0
-            }
-            return parseFloat(value).toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-            })
         }
     },
     async mounted() {
