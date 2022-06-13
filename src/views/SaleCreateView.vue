@@ -6,7 +6,10 @@
         <small>Código do vendedor: {{ this.$route.params.seller_id }} </small>
       </div>
       <form action="" method="post" @submit.prevent="doCreateSale" class="flex flex-nowrap mb-4">
-        <input v-model="total" type="text" class=" bg-gray-100 rounded p-2 mr-4" placeholder="Valor total da venda" />
+        <currency-input v-model="total" :options="{
+          currency: 'BRL',
+          locale: 'pt-BR'
+        }" />
         <button type="submit" class="rounded bg-emerald-500 hover:bg-emerald-600 text-white px-4 ">
           Nova Venda
         </button>
@@ -17,10 +20,12 @@
 
 <script>
 import { useToast } from "vue-toastification";
+import CurrencyInput from '@/components/CurrencyInput'
 
 export default {
   name: 'SaleCreateView',
   components: {
+    CurrencyInput
   },
   data() {
     return {
@@ -29,7 +34,7 @@ export default {
   },
   methods: {
     async doCreateSale() {
-       const toast = useToast();
+      const toast = useToast();
       try {
         await this.$axios.post(`/sellers/${this.$route.params.seller_id}/sales`, {
           total: this.total
@@ -38,11 +43,11 @@ export default {
         this.$router.push({ name: 'sellers' })
       } catch (error) {
         if (error.response.status === 422) {
-            const msg = Object.values(error.response.data.errors)
-            msg.forEach((item, i) => {
-             toast.error(`Error: ${item}`)
-            })
-          }
+          const msg = Object.values(error.response.data.errors)
+          msg.forEach((item, i) => {
+            toast.error(`Error: ${item}`)
+          })
+        }
       }
 
     }
