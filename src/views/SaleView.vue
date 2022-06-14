@@ -35,7 +35,7 @@
                             {{ toCurrent(sale.commission) }}
                         </td>
                         <td class="pl-5">
-                            {{ formatDate( sale.created_at) }}
+                            {{ formatDate(sale.created_at) }}
                         </td>
                     </tr>
                 </tbody>
@@ -74,7 +74,6 @@ export default {
         },
         formatDate(dateString) {
             const date = new Date(dateString);
-                // Then specify how you want your dates to be formatted
             return new Intl.DateTimeFormat('pt-BR').format(date);
         }
     },
